@@ -5,7 +5,7 @@ import importlib
 # Función para cargar dinámicamente una versión
 def cargar_version(version):
     try:
-        modulo = importlib.import_module(f"{version}.principal")  # Carga principal.py de la versión
+        modulo = importlib.import_module(f"proyectos.{version}.principal")  # Carga principal.py de la versión
         return modulo
     except ImportError as e:
         st.error(f"Error al cargar la versión {version}: {e}")
