@@ -1,8 +1,8 @@
 from .modelo import obtener_datos_desde_supabase, seleccion_variables, modelo_ensemble, menu_opciones, prediccion,subir_archivo
-from private.back_proy2_CRUD import crear_prediccion, listar_registros, verificar_registros, eliminar_prediccion_rpc
+from scripts.CRUD import crear_prediccion, listar_registros, verificar_registros, eliminar_prediccion_rpc
 import streamlit as st
 from proyectos.Proyecto2.FrontEnd.estilos_st import aplicar_estilos
-from private.integrantes import mostrar_integrantes
+from scripts.integrantes import mostrar_integrantes
 
 def ejecutar():
     #VErsion
