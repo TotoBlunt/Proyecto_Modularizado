@@ -1,6 +1,11 @@
 # main.py
 import streamlit as st
 import importlib
+import sys
+import os
+
+# Agrega la carpeta "private" al PYTHONPATH
+sys.path.append(os.path.join(os.path.dirname(__file__), "private"))
 
 # Función para cargar dinámicamente una versión
 def cargar_version(version):
