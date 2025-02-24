@@ -42,6 +42,7 @@ def main():
     if st.button("Ejecutar Versión"):
         ejecutar_version(version_seleccionada)
 
+if __name__ == "__main__":
 # Punto de entrada de la aplicación
 # Configurar el ancho de la página
     st.set_page_config(layout="wide")
@@ -60,5 +61,5 @@ def main():
 
     # Sección principal (80%)
     with col2:
-        if __name__ == "__main__":
-            main()
+        
+        main()
