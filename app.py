@@ -3,6 +3,8 @@ import streamlit as st
 import importlib
 import sys
 import os
+from proyectos.Proyecto2.FrontEnd.estilos_st import aplicar_estilos
+from scripts.integrantes import mostrar_integrantes
 
 # Agrega la carpeta "private" al PYTHONPATH
 sys.path.append(os.path.join(os.path.dirname(__file__), "private"))
@@ -41,5 +43,22 @@ def main():
         ejecutar_version(version_seleccionada)
 
 # Punto de entrada de la aplicación
-if __name__ == "__main__":
-    main()
+# Configurar el ancho de la página
+    st.set_page_config(layout="wide")
+
+    # Aplicar estilos personalizados
+    aplicar_estilos()
+
+    # Dividir la pantalla en dos secciones (20% izquierda, 80% derecha)
+    col1, col2 = st.columns([2, 8])
+
+    # Sección de integrantes del grupo (20% - izquierda)
+    with col1:
+        st.title("Integrantes del Grupo")
+
+        mostrar_integrantes()
+
+    # Sección principal (80%)
+    with col2:
+        if __name__ == "__main__":
+            main()
