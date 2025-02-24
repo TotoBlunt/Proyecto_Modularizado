@@ -6,7 +6,7 @@ from scripts.integrantes import mostrar_integrantes
 
 def ejecutar():
     #VErsion
-    st.title("_____Version_2_____")
+    #st.title("_____Version_2_____")
 
     # Configurar el ancho de la página
     st.set_page_config(layout="wide")
