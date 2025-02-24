@@ -2,6 +2,7 @@ from modelo import obtener_datos_desde_supabase, seleccion_variables, modelo_ens
 from private.back_proy2_CRUD import crear_prediccion, listar_registros, verificar_registros, eliminar_prediccion_rpc
 import streamlit as st
 from proyectos.Proyecto2.FrontEnd.estilos_st import aplicar_estilos
+from private.integrantes import mostrar_integrantes
 
 def ejecutar():
     #VErsion
@@ -20,12 +21,7 @@ def ejecutar():
     with col1:
         st.title("Integrantes del Grupo")
 
-    #url_imagen_1 = "https://i.imgur.com/ZX7HTol.jpeg"  # Ejemplo de imagen pública
-    #st.image(url_imagen_1, caption="Integrante Numero 1", use_container_width=True)
-        st.write("- Jhon Max Lozano Sulluchuco")
-        st.write("- Mattew Deni Mamani Flores")
-        st.write("- Elvis Alberto Portilla Flores")
-        st.write("- Jose Antonio Longa Mendoza")
+        mostrar_integrantes()
 
     # Sección principal (80%)
     with col2:

@@ -1,0 +1,1 @@
+# Esto le indica a Python que Proyecto2 es un paquete y permite importar módulos desde allí.
