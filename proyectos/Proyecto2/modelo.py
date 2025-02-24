@@ -15,7 +15,7 @@ import pandas as pd
 import streamlit as st
 import numpy as np
 from datetime import datetime
-from private.back_proy2_CRUD import crear_prediccion
+from scripts.CRUD import crear_prediccion
 import json
 from scripts.supabase_connector import inicializar_supabase
 import pickle
