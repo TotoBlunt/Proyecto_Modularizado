@@ -1,23 +1,29 @@
+
+import streamlit as st
 import importlib
 
-def cargar_version(version):
+# Función para cargar dinámicamente el módulo principal
+def cargar_modulo():
     try:
-        modulo = importlib.import_module(f"{version}.modulo_principal")
+        modulo = importlib.import_module("Proyecto2.principal")  # Carga principal.py
         return modulo
     except ImportError as e:
-        print(f"Error al cargar la versión {version}: {e}")
+        st.error(f"Error al cargar el módulo: {e}")
         return None
 
-def ejecutar_version(version):
-    modulo = cargar_version(version)
+# Función para ejecutar la lógica principal
+def ejecutar_aplicacion():
+    modulo = cargar_modulo()
     if modulo:
-        print(f"Ejecutando {version}...")
-        modulo.ejecutar()  # Suponiendo que cada versión tiene una función `ejecutar`
+        st.success("Aplicación cargada correctamente.")
+        modulo.ejecutar()  # Llama a la función ejecutar() del módulo principal
     else:
-        print(f"No se pudo cargar la versión {version}")
+        st.error("No se pudo cargar la aplicación.")
 
+# Interfaz de Streamlit
+def main():
+    ejecutar_aplicacion()
+
+# Punto de entrada de la aplicación
 if __name__ == "__main__":
-    # Cambia esta variable para ejecutar una versión u otra
-    version_a_ejecutar = "version_1"  # Puedes cambiar a "version_2" o "version_3"
-
-    ejecutar_version(version_a_ejecutar)
+    main()
