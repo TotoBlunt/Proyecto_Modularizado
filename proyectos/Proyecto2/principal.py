@@ -1,9 +1,11 @@
 from modelo import obtener_datos_desde_supabase, seleccion_variables, modelo_ensemble, menu_opciones, prediccion,subir_archivo
-from CRUD_supabase import crear_prediccion, listar_registros, verificar_registros, eliminar_prediccion_rpc
+from private.back_proy2_CRUD import crear_prediccion, listar_registros, verificar_registros, eliminar_prediccion_rpc
 import streamlit as st
-from estilos import aplicar_estilos
+from proyectos.Proyecto2.FrontEnd.estilos_st import aplicar_estilos
 
 def ejecutar():
+    #VErsion
+    st.title("_____Version_2_____")
 
     # Configurar el ancho de la página
     st.set_page_config(layout="wide")
