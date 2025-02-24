@@ -55,8 +55,6 @@ if __name__ == "__main__":
 
     # Sección de integrantes del grupo (20% - izquierda)
     with col1:
-        st.title("Integrantes del Grupo")
-
         mostrar_integrantes()
 
     # Sección principal (80%)
