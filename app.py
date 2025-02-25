@@ -6,9 +6,10 @@ import pandas as pd
 from proyectos.Proyecto2.FrontEnd.estilos_st import aplicar_estilos
 from scripts.integrantes import mostrar_integrantes
 
+
 # Variables de estado
 if "version_seleccionada" not in st.session_state:
-    st.session_state.version_seleccionada = "Proyecto1"  # Versión por defecto
+    st.session_state.version_seleccionada = None  # Ahora empieza sin versión seleccionada
 
 if "data_source" not in st.session_state:
     st.session_state.data_source = None
@@ -38,39 +39,41 @@ def ejecutar_version(version):
 def main():
     st.title("Selector de Versiones")
 
-    # Selector de versión (almacenado en session_state)
-    nueva_version = st.selectbox(
+    # 1️⃣ Primero seleccionas la versión
+    version = st.selectbox(
         "Selecciona la versión que deseas ejecutar:",
         options=["Proyecto1", "Proyecto2"],  
-        index=["Proyecto1", "Proyecto2"].index(st.session_state.version_seleccionada)  
+        index=0  
     )
 
-    if nueva_version != st.session_state.version_seleccionada:
-        st.session_state.version_seleccionada = nueva_version
+    if version != st.session_state.version_seleccionada:
+        st.session_state.version_seleccionada = version
+        st.session_state.data_source = None  # Reiniciar selección de datos
 
-    # Fuente de datos
-    st.subheader("Seleccionar fuente de datos")
-    data_option = st.radio("¿Desde dónde quieres cargar el modelo?", ["Supabase", "CSV/Excel"])
+    # 2️⃣ Luego seleccionas la fuente de datos (solo si hay versión)
+    if st.session_state.version_seleccionada:
+        st.subheader("Seleccionar fuente de datos")
+        data_option = st.radio("¿Desde dónde quieres cargar el modelo?", ["Supabase", "CSV/Excel"])
 
-    if data_option != st.session_state.data_source:
-        st.session_state.data_source = data_option  # Guardar la selección
+        if data_option != st.session_state.data_source:
+            st.session_state.data_source = data_option  # Guardar selección
 
-    # Carga de datos
-    if st.session_state.data_source == "CSV/Excel":
-        archivo = st.file_uploader("Carga tu archivo CSV o Excel", type=["csv", "xlsx"])
-        if archivo:
-            st.session_state.uploaded_file = archivo  # Guardar el archivo
-            try:
-                if archivo.name.endswith(".csv"):
-                    df = pd.read_csv(archivo)
-                else:
-                    df = pd.read_excel(archivo)
-                st.write(df)  # Mostrar los datos
-            except Exception as e:
-                st.error(f"Error al leer el archivo: {e}")
+        # 3️⃣ Solo si eliges "CSV/Excel" te muestra la opción de subir archivos
+        if st.session_state.data_source == "CSV/Excel":
+            archivo = st.file_uploader("Carga tu archivo CSV o Excel", type=["csv", "xlsx"])
+            if archivo:
+                st.session_state.uploaded_file = archivo  # Guardar el archivo
+                try:
+                    if archivo.name.endswith(".csv"):
+                        df = pd.read_csv(archivo)
+                    else:
+                        df = pd.read_excel(archivo)
+                    st.write(df)  # Mostrar los datos
+                except Exception as e:
+                    st.error(f"Error al leer el archivo: {e}")
 
-    # Botón para ejecutar la versión seleccionada
-    if st.button("Ejecutar Versión"):
+    # 4️⃣ Solo habilitar el botón si hay versión seleccionada
+    if st.session_state.version_seleccionada and st.button("Ejecutar Versión"):
         ejecutar_version(st.session_state.version_seleccionada)
 
 if __name__ == "__main__":
