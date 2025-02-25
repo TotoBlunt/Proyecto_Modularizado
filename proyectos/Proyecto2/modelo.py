@@ -312,3 +312,6 @@ def cargar_modelo(ruta):
     """Carga un modelo desde un archivo .pkl  indicada como parametro de la funcion"""
     with open(ruta, 'rb') as archivo:
         return pickle.load(archivo)
+    
+if __name__ == "__main__":
+    obtener_datos_desde_supabase()
