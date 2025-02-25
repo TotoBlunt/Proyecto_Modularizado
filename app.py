@@ -2,20 +2,24 @@ import streamlit as st
 import importlib
 import sys
 import os
+import pandas as pd
 from proyectos.Proyecto2.FrontEnd.estilos_st import aplicar_estilos
 from scripts.integrantes import mostrar_integrantes
 
-# Agrega la carpeta "private" al PYTHONPATH
-sys.path.append(os.path.join(os.path.dirname(__file__), "private"))
-
-# Almacenar la versión seleccionada en session_state
+# Variables de estado
 if "version_seleccionada" not in st.session_state:
-    st.session_state.version_seleccionada = "Proyecto2"  # Versión predeterminada
+    st.session_state.version_seleccionada = "Proyecto1"  # Versión por defecto
+
+if "data_source" not in st.session_state:
+    st.session_state.data_source = None
+
+if "uploaded_file" not in st.session_state:
+    st.session_state.uploaded_file = None
 
 # Función para cargar dinámicamente una versión
 def cargar_version(version):
     try:
-        modulo = importlib.import_module(f"proyectos.{version}.principal")  # Carga principal.py de la versión
+        modulo = importlib.import_module(f"proyectos.{version}.principal")  
         return modulo
     except ImportError as e:
         st.error(f"Error al cargar la versión {version}: {e}")
@@ -26,7 +30,7 @@ def ejecutar_version(version):
     modulo = cargar_version(version)
     if modulo:
         st.success(f"Ejecutando {version}...")
-        modulo.ejecutar()  # Llama a la función ejecutar() de la versión seleccionada
+        modulo.ejecutar()
     else:
         st.error(f"No se pudo cargar la versión {version}")
 
@@ -34,23 +38,42 @@ def ejecutar_version(version):
 def main():
     st.title("Selector de Versiones")
 
-    # Selector de versión (se almacena en session_state)
+    # Selector de versión (almacenado en session_state)
     nueva_version = st.selectbox(
         "Selecciona la versión que deseas ejecutar:",
-        options=["Proyecto1", "Proyecto2"],  # Opciones disponibles
-        index=["Proyecto1", "Proyecto2"].index(st.session_state.version_seleccionada)  # Mantiene la selección previa
+        options=["Proyecto1", "Proyecto2"],  
+        index=["Proyecto1", "Proyecto2"].index(st.session_state.version_seleccionada)  
     )
 
-    # Si el usuario cambia la selección, actualizar en session_state
     if nueva_version != st.session_state.version_seleccionada:
         st.session_state.version_seleccionada = nueva_version
+
+    # Fuente de datos
+    st.subheader("Seleccionar fuente de datos")
+    data_option = st.radio("¿Desde dónde quieres cargar el modelo?", ["Supabase", "CSV/Excel"])
+
+    if data_option != st.session_state.data_source:
+        st.session_state.data_source = data_option  # Guardar la selección
+
+    # Carga de datos
+    if st.session_state.data_source == "CSV/Excel":
+        archivo = st.file_uploader("Carga tu archivo CSV o Excel", type=["csv", "xlsx"])
+        if archivo:
+            st.session_state.uploaded_file = archivo  # Guardar el archivo
+            try:
+                if archivo.name.endswith(".csv"):
+                    df = pd.read_csv(archivo)
+                else:
+                    df = pd.read_excel(archivo)
+                st.write(df)  # Mostrar los datos
+            except Exception as e:
+                st.error(f"Error al leer el archivo: {e}")
 
     # Botón para ejecutar la versión seleccionada
     if st.button("Ejecutar Versión"):
         ejecutar_version(st.session_state.version_seleccionada)
 
 if __name__ == "__main__":
-    # Punto de entrada de la aplicación
     # Configurar el ancho de la página
     st.set_page_config(layout="wide")
 
