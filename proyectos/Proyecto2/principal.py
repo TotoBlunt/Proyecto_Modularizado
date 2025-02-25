@@ -96,3 +96,6 @@ def ejecutar():
 
     else:
         st.write("No se ha cargado ningún archivo.")
+
+if __name__ == "__main__":
+    obtener_datos_desde_supabase()
