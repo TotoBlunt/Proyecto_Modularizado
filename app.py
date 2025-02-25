@@ -10,7 +10,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "private"))
 
 # Almacenar la versión seleccionada en session_state
 if "version_seleccionada" not in st.session_state:
-    st.session_state.version_seleccionada = "Proyecto1"  # Versión predeterminada
+    st.session_state.version_seleccionada = "Proyecto2"  # Versión predeterminada
 
 # Función para cargar dinámicamente una versión
 def cargar_version(version):
