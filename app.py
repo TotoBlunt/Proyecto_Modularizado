@@ -11,11 +11,6 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "private"))
 if "selected_version" not in st.session_state:
     st.session_state.selected_version = None
 
-if "data_source" not in st.session_state:
-    st.session_state.data_source = None
-
-if "uploaded_file" not in st.session_state:
-    st.session_state.uploaded_file = None
 
 def cargar_version(version):
     try:
