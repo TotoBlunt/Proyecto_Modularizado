@@ -1,4 +1,3 @@
-# main.py
 import streamlit as st
 import importlib
 import sys
@@ -8,6 +7,10 @@ from scripts.integrantes import mostrar_integrantes
 
 # Agrega la carpeta "private" al PYTHONPATH
 sys.path.append(os.path.join(os.path.dirname(__file__), "private"))
+
+# Almacenar la versión seleccionada en session_state
+if "version_seleccionada" not in st.session_state:
+    st.session_state.version_seleccionada = "Proyecto1"  # Versión predeterminada
 
 # Función para cargar dinámicamente una versión
 def cargar_version(version):
@@ -31,20 +34,24 @@ def ejecutar_version(version):
 def main():
     st.title("Selector de Versiones")
 
-    # Selector de versión
-    version_seleccionada = st.selectbox(
+    # Selector de versión (se almacena en session_state)
+    nueva_version = st.selectbox(
         "Selecciona la versión que deseas ejecutar:",
         options=["Proyecto1", "Proyecto2"],  # Opciones disponibles
-        index=0  # Versión predeterminada
+        index=["Proyecto1", "Proyecto2"].index(st.session_state.version_seleccionada)  # Mantiene la selección previa
     )
+
+    # Si el usuario cambia la selección, actualizar en session_state
+    if nueva_version != st.session_state.version_seleccionada:
+        st.session_state.version_seleccionada = nueva_version
 
     # Botón para ejecutar la versión seleccionada
     if st.button("Ejecutar Versión"):
-        ejecutar_version(version_seleccionada)
+        ejecutar_version(st.session_state.version_seleccionada)
 
 if __name__ == "__main__":
-# Punto de entrada de la aplicación
-# Configurar el ancho de la página
+    # Punto de entrada de la aplicación
+    # Configurar el ancho de la página
     st.set_page_config(layout="wide")
 
     # Aplicar estilos personalizados
@@ -59,5 +66,4 @@ if __name__ == "__main__":
 
     # Sección principal (80%)
     with col2:
-        
         main()
