@@ -51,17 +51,6 @@ def main():
     if st.session_state.selected_version:
         st.success(f"Versión seleccionada: {st.session_state.selected_version}")
 
-        # Paso 2: Elegir la fuente de datos
-        st.session_state.data_source = st.radio(
-            "¿Desde dónde quieres cargar el modelo?",
-            ["Supabase", "CSV/Excel"],
-            index=0 if st.session_state.data_source is None else ["Supabase", "CSV/Excel"].index(st.session_state.data_source)
-        )
-
-        # Si el usuario elige CSV/Excel, subir archivo
-        if st.session_state.data_source == "CSV/Excel":
-            st.session_state.uploaded_file = st.file_uploader("Carga tu archivo", type=["csv", "xlsx"])
-
         # Paso 3: Botón de ejecutar directamente
         if st.button("Ejecutar Versión"):
             if st.session_state.data_source:
