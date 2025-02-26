@@ -22,8 +22,7 @@ import pickle
 
 Client = inicializar_supabase()
 
-#Titulo para el app
-st.title("Proyecto Productivo para la prediccion del peso de pollos usando variables descritas por el modelo SelectcKbest luego hacer las predicciones usando el Modelo Ensemble, con Streamlit(v1)")
+
 
 def obtener_datos_desde_supabase():
     """
