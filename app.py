@@ -51,9 +51,7 @@ def main():
     if st.session_state.selected_version:
         st.success(f"Versión seleccionada: {st.session_state.selected_version}")
 
-        if st.button("Ejecutar Version"):
-
-            ejecutar_version(st.session_state.selected_version)
+        ejecutar_version(st.session_state.selected_version)
 
 if __name__ == "__main__":
     st.set_page_config(layout="wide")
