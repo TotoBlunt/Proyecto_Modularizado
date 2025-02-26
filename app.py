@@ -7,7 +7,7 @@ from scripts.integrantes import mostrar_integrantes
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "private"))
 
-# Guardar selección en sesión para evitar reinicios
+# Inicializar el estado de la sesión
 if "selected_version" not in st.session_state:
     st.session_state.selected_version = None
 
@@ -29,7 +29,8 @@ def ejecutar_version(version):
     modulo = cargar_version(version)
     if modulo:
         st.success(f"Ejecutando {version}...")
-        modulo.ejecutar(st.session_state.data_source, st.session_state.uploaded_file)
+        # Llamar a la función ejecutar sin parámetros
+        modulo.ejecutar()  # Aquí no se pasan parámetros
     else:
         st.error(f"No se pudo cargar la versión {version}")
 
@@ -37,17 +38,16 @@ def ejecutar_version(version):
 def main():
     st.title("Selector de Versiones")
 
-    # Paso 1: Seleccionar versión antes de continuar
+    # Paso 1: Seleccionar versión
     version_seleccionada = st.selectbox(
         "Selecciona la versión que deseas ejecutar:",
         options=["Proyecto1", "Proyecto2"],  
         index=0 if st.session_state.selected_version is None else ["Proyecto1", "Proyecto2"].index(st.session_state.selected_version)
     )
 
-    if st.button("Confirmar Versión"):
-        st.session_state.selected_version = version_seleccionada
+    # Actualizar el estado de la versión seleccionada
+    st.session_state.selected_version = version_seleccionada
 
-    # No avanzar hasta que se confirme la versión
     if st.session_state.selected_version:
         st.success(f"Versión seleccionada: {st.session_state.selected_version}")
 
@@ -62,9 +62,12 @@ def main():
         if st.session_state.data_source == "CSV/Excel":
             st.session_state.uploaded_file = st.file_uploader("Carga tu archivo", type=["csv", "xlsx"])
 
-        # Paso 3: Ejecutar versión cuando todo está listo
-        if st.button("Ejecutar Versión") and st.session_state.data_source:
-            ejecutar_version(st.session_state.selected_version)
+        # Paso 3: Botón de ejecutar directamente
+        if st.button("Ejecutar Versión"):
+            if st.session_state.data_source:
+                ejecutar_version(st.session_state.selected_version)
+            else:
+                st.warning("Por favor, selecciona una fuente de datos antes de ejecutar.")
 
 if __name__ == "__main__":
     st.set_page_config(layout="wide")
