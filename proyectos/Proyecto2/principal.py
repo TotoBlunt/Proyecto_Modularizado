@@ -8,7 +8,6 @@ def ejecutar():
     #VErsion
     st.title("_____Version_2_____")
 
-    st.title("Proyecto Productivo para la predicción del peso de pollos usando variables descritas por el modelo SelectKBest, luego hacer las predicciones usando el Modelo Ensemble, con Streamlit(v2)")
 
     # Estado de sesión para manejar datos entre interacciones
     if 'datos_edit' not in st.session_state:

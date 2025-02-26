@@ -36,6 +36,9 @@ def ejecutar_version(version):
 
 # Interfaz principal
 def main():
+
+    st.title("Proyecto Productivo para la predicción del peso de pollos usando variables descritas por el modelo SelectKBest, luego hacer las predicciones usando el Modelo Ensemble, con Streamlit")
+    
     st.title("Selector de Versiones")
 
     # Paso 1: Seleccionar versión
