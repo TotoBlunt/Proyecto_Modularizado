@@ -51,12 +51,7 @@ def main():
     if st.session_state.selected_version:
         st.success(f"Versión seleccionada: {st.session_state.selected_version}")
 
-        # Paso 3: Botón de ejecutar directamente
-        if st.button("Ejecutar Versión"):
-            if st.session_state.data_source:
-                ejecutar_version(st.session_state.selected_version)
-            else:
-                st.warning("Por favor, selecciona una fuente de datos antes de ejecutar.")
+        ejecutar_version(version_seleccionada)
 
 if __name__ == "__main__":
     st.set_page_config(layout="wide")
