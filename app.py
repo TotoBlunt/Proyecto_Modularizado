@@ -11,6 +11,11 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "private"))
 if "selected_version" not in st.session_state:
     st.session_state.selected_version = None
 
+if "data_source" not in st.session_state:
+    st.session_state.data_source = None
+
+if "uploaded_file" not in st.session_state:
+    st.session_state.uploaded_file = None
 
 def cargar_version(version):
     try:
@@ -35,8 +40,8 @@ def main():
     # Paso 1: Seleccionar versión antes de continuar
     version_seleccionada = st.selectbox(
         "Selecciona la versión que deseas ejecutar:",
-        options=["Proyecto2"],  # Eliminamos Proyecto1 si está vacío
-        index=0
+        options=["Proyecto1", "Proyecto2"],  
+        index=0 if st.session_state.selected_version is None else ["Proyecto1", "Proyecto2"].index(st.session_state.selected_version)
     )
 
     if st.button("Confirmar Versión"):
@@ -49,7 +54,8 @@ def main():
         # Paso 2: Elegir la fuente de datos
         st.session_state.data_source = st.radio(
             "¿Desde dónde quieres cargar el modelo?",
-            ["Supabase", "CSV/Excel"]
+            ["Supabase", "CSV/Excel"],
+            index=0 if st.session_state.data_source is None else ["Supabase", "CSV/Excel"].index(st.session_state.data_source)
         )
 
         # Si el usuario elige CSV/Excel, subir archivo
