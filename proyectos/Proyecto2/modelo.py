@@ -161,7 +161,7 @@ def seleccion_variables(df):
         # Variables más importantes a trabajar en el modelo
         top5 = feature_importances['Característica'].head(5)
         top5 = top5.tolist()
-        st.write(f'#### Variables a utilizar en el modelo: ', ["PesoSem4","Agua","PesoSem3","ConsumoAcabado","MortStd"]) #top5)
+        st.write(f'#### Variables a utilizar en el modelo: ',  top5)
 
         return top5
     except KeyError as e:
@@ -176,7 +176,7 @@ def modelo_ensemble(top5,df):
     """
         
     #DIVIR EL DATA FRAME EN CARACTERISTICAS Y ETIQUETAS PARA ENTRENAR EL MODELO
-    x_model = df[["PesoSem4","Agua","PesoSem3","ConsumoAcabado","MortStd"]] #Cuando es mas de una columna se utiliza dos corchetes para que lo lea correctamente
+    x_model = df[top5] #Cuando es mas de una columna se utiliza dos corchetes para que lo lea correctamente
     y_model = df['PesoFinal'] 
         
     #Conjuntpo de Pruebas
