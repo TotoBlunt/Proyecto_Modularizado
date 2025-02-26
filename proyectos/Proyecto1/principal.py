@@ -20,13 +20,18 @@ def ejecutar():
     st.header("_____Version_1_____")
 
     #Subir archivo de excel
-    upload_file = st.file_uploader('Sube un archivo Excel',type=['xlsx','csv'])
+    upload_file = st.file_uploader('Sube un archivo Excel o CSV ',type=['xlsx','csv'])
 
     if upload_file is not None:
         try:
             
-            #Importar el dataframe (Leer el archivo excel)
-            df = pd.read_excel(upload_file)
+            # Cargar archivos y determinar cual es
+            if upload_file.name.endswith('.xlsx'):
+                df = pd.read_excel(upload_file)
+            elif upload_file.name.endswith('.csv'):
+                df = pd.read_csv(upload_file,sep=';')
+            else:
+                st.error("Formato de archivo no soportado. Por favor, sube un archivo Excel (xlsx) o CSV (csv).")
 
             st.write('### Vista previa de los datos')
             st.write(df.head())
