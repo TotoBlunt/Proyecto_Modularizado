@@ -6,7 +6,7 @@ from scripts.integrantes import mostrar_integrantes
 
 def ejecutar():
     #VErsion
-    st.title("_____Version_2_____")
+    st.header("_____Version_2_____")
 
 
     # Estado de sesión para manejar datos entre interacciones
@@ -18,7 +18,7 @@ def ejecutar():
         st.session_state['mostrar_lista_y_campo_id'] = False
 
     # Cargar archivo
-    st.title("Cargar datos para predicción")
+    st.header("Cargar datos para predicción")
     st.write("Selecciona cómo deseas cargar los datos:")
 
     # Opciones para el usuario
