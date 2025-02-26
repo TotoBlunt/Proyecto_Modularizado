@@ -30,7 +30,7 @@ def obtener_datos_desde_supabase():
         para poder hacerlo de una manera automatica
     """
     # Nombre de la tabla de Supabase
-    tabla = 'DatosPredicciones'
+    tabla = 'DatosPredicciones2'
 
     try:
         # Obtener los datos de la tabla
