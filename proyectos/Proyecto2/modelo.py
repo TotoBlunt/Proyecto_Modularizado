@@ -30,11 +30,15 @@ def obtener_datos_desde_supabase():
         para poder hacerlo de una manera automatica
     """
     # Nombre de la tabla de Supabase
-    tabla = 'DatosPredicciones2'
+    tablas_disponibles = ['DatosPredicciones2','DatosPredicciones']
 
     try:
+        tabla_seleccionada = st.selectbox(
+            "Selecciona la tabla de la cual deseas obtener los datos:",
+            tablas_disponibles
+        )
         # Obtener los datos de la tabla
-        response = Client.table(tabla).select("*").execute()
+        response = Client.table(tabla_seleccionada).select("*").execute()
 
         # Crear el DataFrame
         df = pd.DataFrame(response.data)
