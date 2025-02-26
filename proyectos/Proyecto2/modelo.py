@@ -37,6 +37,7 @@ def obtener_datos_desde_supabase():
             "Selecciona la tabla de la cual deseas obtener los datos:",
             tablas_disponibles
         )
+        st.success(f"Tabla seleccionada: {tabla_seleccionada}")
         # Obtener los datos de la tabla
         response = Client.table(tabla_seleccionada).select("*").execute()
 
