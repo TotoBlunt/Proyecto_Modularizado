@@ -14,7 +14,7 @@ import openpyxl
 import pandas as pd 
 import streamlit as st
 import numpy as np
-from datetime import datetime
+from datetime import datetime,timezone
 from scripts.CRUD import crear_prediccion
 import json
 from scripts.supabase_connector import inicializar_supabase
@@ -266,7 +266,7 @@ def menu_opciones(modelo, y_pred_model, y_test_model, df, x_train_model, y_train
         feature_3 = float(st.number_input('Ingresa el valor para PesoSem3', format="%.3f"))
         feature_4 = float(st.number_input('Ingresa el valor para ConsumoAcabado', format="%.3f"))
         feature_5 = float(st.number_input('Ingresa el valor para MortStd', format="%.3f"))
-        created_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Formato más limpio
+        created_at = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
         nombre = st.text_input('Ingrese su nombre')
 
         if feature_1 is not None and feature_2 is not None and feature_3 is not None and feature_4 is not None and feature_5 is not None:
