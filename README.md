@@ -45,7 +45,7 @@ Sigue estos pasos para instalar y ejecutar el proyecto en tu máquina local:
     Ruta Streamlit: https://version2idl2.streamlit.app/
 
 ## 🗂️ Estructura del Proyecto 
-    ```bash
+    
     |Logs/
     |Private/
     |Proyectos/
@@ -72,7 +72,7 @@ Sigue estos pasos para instalar y ejecutar el proyecto en tu máquina local:
     |README.md
     |App.py
     |Requirements.txt
-    ```
+    
 Carpetas:
 
 * Logs : En esta carpeta se guardaron los scripts para realizar y revisar los logs debido a que streamlit tiene su propia base de datos para mostrar estos logs, se usaran de una manera online.
